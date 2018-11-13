@@ -1,67 +1,64 @@
 import time
 import math
 
-def GoldBatch(num,primes):
-    flag=True
-    maxY=int(math.sqrt(num)/2)
-    x=0
-    y=0
-    print("Prueba")
-    
-    while x < num or flag:
-        while y < maxY:
-            if num ==(primes[x] + 2 * (y**2)):
-                flag=False
-            
-            y+=1
-        x+=1
+
+def GoldBatch(num, primes):
+    flag = True
+    maxY = int(math.ceil(math.sqrt(num/2)))
+
+    x = 0
+    while x <= num and flag:
+        y=maxY
+        while y >=0 and flag:
+
+            if num == (primes[x] + 2 * (y ** 2)):
+                flag = False
+
+            y -= 1
+        x += 1
     return flag
 
 
-
 def FindingPrimesV1(numb):
+    Primes = [2]
 
-    Primes=[2]
-
-    for x in range(3,numb,2):
+    for x in range(3, numb, 2):
         raiz = math.sqrt(x)
 
-        flag=True
-        for y in range(0,Primes.__len__(),1):
+        flag = True
+        for y in range(0, Primes.__len__(), 1):
             if Primes[y] > raiz:
                 break
-            elif x%Primes[y]==0:
-                flag=False
+            elif x % Primes[y] == 0:
+                flag = False
                 break
-        if flag==True:
+        if flag == True:
             Primes.append(x)
 
     return Primes
 
 
 def final(primes):
-
-    flag=True
-
-    answer=0
-    x=3
+    flag = True
+    primes =[1]+primes
+    answer = 0
+    x = 3
 
     while flag:
-        
-        print ("prueba229")
-        if GoldBatch(x,primes):
-            flag=False
-            answer=x
-        
-        x+=2
-    
+
+
+        if GoldBatch(x, primes):
+            flag = False
+            answer = x
+
+        x += 2
+
     return answer
 
 
 start = time.time()
-#print (FindingPrimesV1(100000))
-print (final(FindingPrimesV1(100000)))
 
+print(final(FindingPrimesV1(100000)))
 
 end = time.time()
 print(end - start)
